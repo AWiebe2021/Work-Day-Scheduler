@@ -1,5 +1,6 @@
 var day = (moment().format("DDDDYYYY"));
 var dayInc = 0;
+var hour = moment().hours();
 
 function renderDay(){
   $(document).ready(function() {
@@ -41,6 +42,22 @@ function renderDay(){
       var timeBlock =  $("<div>")
         .addClass("row time-block")
         .attr("id", intId);
+      if(dayInc < 0){
+        timeBlock.addClass("past")
+      }else if (dayInc == 0){
+        if (hour < intId){
+          timeBlock.addClass("future")
+        }else if (hour == intId){
+          timeBlock.addClass("present")
+        }else if (hour > intId){
+          timeBlock.addClass("past")
+        }
+      }else if(dayInc > 0){
+        timeBlock.addClass("future")
+      }
+
+
+
       $('#container').append(timeBlock);
       var taskHour =  $("<div>")
         .addClass("col-1 hour")
